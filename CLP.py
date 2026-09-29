@@ -1,5 +1,6 @@
 import pandas as pd
 import pulp
+from pulp import LpVariable, LpProblem, lpSum, LpStatus
 import streamlit as st
 
 # Set Konfigurasi Halaman Streamlit (Menggunakan 'layout' agar tidak error)
@@ -99,10 +100,10 @@ if st.button("🚀 Jalankan Optimasi", type="primary"):
     )
 
     # Variabel Keputusan: y[i] = biner status gudang (1 = buka, 0 = tutup)
-    y = pulp.LpVariable.dict("Warehouse_Status", gudang, cat="Binary")
+    y = pulp.LpVariable.dicts("Warehouse_Status", gudang, cat="Binary")
 
     # Variabel Keputusan: x[i, j] = jumlah pengiriman dari gudang i ke pasar j
-    x = pulp.LpVariable.dict(
+    x = pulp.LpVariable.dicts(
         "Shipment", [(w, m) for w in gudang for m in pasar], lowBound=0
     )
 
