@@ -99,7 +99,7 @@ if st.button("🚀 Jalankan Optimasi", type="primary"):
     )
 
     # Variabel Keputusan: y[i] = biner status gudang (1 = buka, 0 = tutup)
-    y = pulp.LpVariable.dicts("Warehouse_Status", gudang, cat="Binary")
+    y = pulp.LpVariable.dicts("Warehouse_Status", gudang, cat=pulp.LpBinary)
 
     # Variabel Keputusan: x[i, j] = jumlah pengiriman dari gudang i ke pasar j
     x = pulp.LpVariable.dicts(
