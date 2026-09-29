@@ -90,22 +90,20 @@ fixed_cost = edited_warehouse_df["Fixed Cost (Juta Rp)"].to_dict()
 capacity = edited_warehouse_df["Kapasitas (Juta Botol)"].to_dict()
 demand = edited_demand_df.loc["Demand (Juta Botol)"].to_dict()
 
-# ---------------------------------------------------------
-# 3. PEMBUATAN & PENYELESAIAN MODEL OPTIMASI 
-# ---------------------------------------------------------
+
+# PEMBUATAN VARIABEL PULP (Di dalam blok tombol optimasi)
 if st.button("🚀 Jalankan Optimasi", type="primary"):
+    # Inisialisasi Model
     model = pulp.LpProblem(
         "Capacitated_Warehouse_Location", pulp.LpMinimize
     )
 
-    # Variabel Keputusan: y[i] = biner status gudang (1 = buka, 0 = tutup)
+    # Variabel Keputusan (Sekarang gudang sudah pasti berbentuk List)
     y = pulp.LpVariable.dicts("Warehouse_Status", gudang, cat=pulp.LpBinary)
 
-    # Variabel Keputusan: x[i, j] = jumlah pengiriman dari gudang i ke pasar j
     x = pulp.LpVariable.dicts(
         "Shipment", [(w, m) for w in gudang for m in pasar], lowBound=0
     )
-
     # Fungsi Tujuan (Objective Function): Total Cost = Total Fixed + Total Variable
     total_fixed_cost = pulp.lpSum([fixed_cost[w] * y[w] for w in gudang])
     total_variable_cost = pulp.lpSum(
