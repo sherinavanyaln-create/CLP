@@ -99,9 +99,9 @@ if st.button("🚀 Jalankan Optimasi", type="primary"):
     )
 
     # Variabel Keputusan (Sekarang gudang sudah pasti berbentuk List)
-    y = pulp.LpVariable.dicts("Warehouse_Status", gudang, cat=pulp.LpBinary)
+    y = pulp.LpVariable.dict("Warehouse_Status", gudang, cat=pulp.LpBinary)
 
-    x = pulp.LpVariable.dicts(
+    x = pulp.LpVariable.dict(
         "Shipment", [(w, m) for w in gudang for m in pasar], lowBound=0
     )
     # Fungsi Tujuan (Objective Function): Total Cost = Total Fixed + Total Variable
