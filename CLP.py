@@ -2,8 +2,11 @@ import pandas as pd
 import pulp
 from pulp import LpVariable, LpProblem, lpSum, LpStatus
 import streamlit as st
+#HOW TO RUN -- OFFLINE
+# 1. Buka New Terminal
+# 2. ketik "streamlit run CLP.py"
 
-# Set Konfigurasi Halaman Streamlit (Menggunakan 'layout' agar tidak error)
+
 st.set_page_config(
     page_title="Optimization Capacitated Warehouse Location",
     layout="wide",
@@ -14,7 +17,7 @@ st.title(
 )
 
 st.markdown(
-    "Aplikasi ini menyelesaikan model Capacitated Facility Location"
+    "Aplikasi ini menyelesaikan Capacitated Location Problem"
     " Model untuk menentukan gudang yang dibuka serta alokasi pengiriman"
     " dengan biaya minimum."
 )
